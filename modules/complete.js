@@ -29,8 +29,16 @@
 // C-c to abandon search?
 
 class Complete {
-    constructor() {
+    constructor(id, history) {
+        this.id = id;
+        this.elem = document.createElement("input")
+        this.elem.id = id;
+        if (Array.isArray(history)) {
+            this.history = history;
+        } else {
+            this.history = [];
+        }
     }
 }
 
-export default Complete;
+export { Complete };
