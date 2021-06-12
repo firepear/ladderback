@@ -27,6 +27,7 @@ from history after a debounce interval.
 c1 = new t.completer({id: "completer1"});
 // andhand the input element to a parent element
 someelem.appendChild(c1.elem);
+```
 
 Constructor arguments:
 
