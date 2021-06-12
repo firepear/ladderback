@@ -51,7 +51,7 @@ Pressing `Ctrl+r` (as expected from `readline`) performs another
 history search, starting from the last search result and looping
 through history.
 
-Pressing `Enter` (as one might expect from `bash`), or `Tab` or
-clicking away from the input element (as one might expect from
-browsers), finalizes the completion by adding the current text to
-history and doing a bit of internal housekeeping.
+Pressing `Enter` (as expected from `bash`), or pressing `Tab` or
+clicking away from the input element (as expected from browsers),
+finalizes the completion by adding the current text to history and
+doing a bit of internal housekeeping.
