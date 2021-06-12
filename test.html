@@ -2,6 +2,24 @@
   <head>
     <script type="module" src="t.js"></script>
   </head>
-  <body>
+  <body id="b">
   </body>
+  <script>
+    'use strict';
+
+    function initPage() {
+        // get a handle on the twiglet object
+        let t = window.twiglet;
+        // and one on the body element
+        let b = document.getElementById("b");
+
+        // instantiate a twiglet Complete widget with no history
+        let tcomp = new t.completer("testcomplete");
+        b.appendChild(tcomp.elem)
+    }
+
+    // wait for page load to call the initialization function, because
+    // modules load asynchronously
+    document.addEventListener("DOMContentLoaded", initPage);
+  </script>
 </html>

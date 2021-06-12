@@ -28,17 +28,13 @@
 // C-r to search backward in history for the same prefix
 // C-c to abandon search?
 
-class Complete {
-    constructor(id, history) {
-        this.id = id;
+class Completer {
+    constructor({id, size = 35, history = []}) {
         this.elem = document.createElement("input")
         this.elem.id = id;
-        if (Array.isArray(history)) {
-            this.history = history;
-        } else {
-            this.history = [];
-        }
+        this.elem.name = id;
+        this.elem.size = size;
     }
 }
 
-export { Complete };
+export { Completer };

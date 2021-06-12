@@ -1,5 +1,5 @@
 // twiglets widget library
 
-import { Complete } from './modules/complete.js'
+import { Completer } from './modules/completer.js'
 
-window.twiglet = { complete: Complete };
+window.twiglet = { completer: Completer };
