@@ -4,32 +4,9 @@
 // web. works like a (restricted) version of the readline library's
 // tab completion, operating on history in a most-recent-matches-first
 // manner
-//
-// PLAN
-//
-// 1. User types something
-//
-// 2. On debounce, the widget history is checked for the current entered string
-//
-// 3. Is no match, nothing happens
-//
-// 4. On match, current input is replaced with the match
-//    A. User-entered text in black
-//    B. rest of match in gray
-//    C. cursor positioned at end of user text with setSelectionRange(len, len)
-//
-// 5. TAB or ENTER accepts suggestion
-//
-// 6. Any other keystroke causes the suggestion to be replaced with
-//    ONLY the user-entered portion, and typing continuesXS
-//
-// TODO
-//
-// C-r to search again in history for the same prefix
-// C-c to abandon search?
 
 class Completer {
-    constructor({id, size = 35, history = [], histsize = 100, interval = 300}) {
+    constructor({id, size = 35, history = [], histsize = 100, interval = 500}) {
         this.elem = document.createElement("input")
         this.elem.id = id;
         this.elem.name = id;
@@ -38,19 +15,21 @@ class Completer {
         this.history = history;
         this.histsize = histsize;
         this.interval = interval;
+        this.loop = false;
         this.timeout = null;     // timeout id from window.setTimeout
-        this.partial = ""        // string user is completing on
-        this.histidx = -1        // position in history (needed for C-r)
+        this.partial = "";        // string user is completing on
+        this.oldpartial = "";
+        this.oldidx = 0;
+        this.histidx = -1;        // position in history (needed for C-r)
 
         this.elem.addEventListener("keydown", this.debounce.bind(this));
     }
 
     debounce(event) {
+        window.clearTimeout(this.timeout);
+
         if (event.key == "Enter" || event.key == "Tab") {
-            if (this.histidx != -1) {
-                // accept completion suggestion
-                this.elem.value = this.history[this.histidx];
-            }
+            // select the current value
             if (this.history.length > 0) {
                 if (this.elem.value != this.history[0]) {
                     // if current value is not the most recent history item, add it to history
@@ -60,20 +39,25 @@ class Completer {
                 // no history, just add the current value
                 this.history.unshift(this.elem.value);
             }
-            // reset histidx
+            // reset histidx and loop
             this.histidx = -1;
+            this.loop = false;
             // pop last history value if we're over histsize
             if (this.history.length > this.histsize) {
                 this.history.pop();
             }
+            return;
         }
 
         if (event.key == "r" && event.ctrlKey) {
             // don't let C-r refresh the page while inside the input box
             event.preventDefault();
             event.stopPropagation();
-            // TODO handle C-r
-            console.log("C-r search")
+            this.loop = true;
+            this.partial = this.oldpartial;
+            this.histidx = this.oldidx;
+            this.search();
+            return;
         }
 
         if (event.isComposing || event.keyCode === 229) {
@@ -82,23 +66,14 @@ class Completer {
             return;
         }
 
-        if (this.partial != "") {
-            // if partial is set, we're here because the user has CONTINUED
-            // typing after a search found a match. set the value to the stored
-            // partial plus what they just typed, move the cursor to end, and
-            // clear partial.
-            this.elem.value = this.partial + event.key;
-            this.elem.setSelectionRange(this.partial.length, this.partial.length);
+        if (this.partial != "" && this.loop == false) {
+            // if partial is set and loop is false, we're here because the user
+            // has CONTINUED typing after a search found a match.
+            this.histidx = -1;
             this.partial = ""
         }
 
-        if (this.timeout != null) {
-            // timer isn't null, so one is set and not expired. kill it
-            console.log("clear timeout")
-            window.clearTimeout(this.timeout);
-        }
         // set a timeout and we're done
-        console.log(`set timeout: ${this.interval}`);
         this.timeout = window.setTimeout(this.search.bind(this), this.interval);
     }
 
@@ -107,8 +82,36 @@ class Completer {
         // timer has expired. first order of business is to set the timeout var
         // back to null
         this.timeout = null;
-        console.log(`search: '${this.elem.value}'`)
+        // do nothing if input has been cleared
+        if (this.elem.value == "") {
+            return;
+        }
+        // set partial to current input value unless loop mode is active
+        if (this.loop == false) {
+            this.partial = this.elem.value;
+            this.oldpartial = this.elem.value;
+        }
+
+        // look through history
+        for (var i = this.histidx + 1; i < this.history.length; i++) {
+            this.histidx++;
+            this.oldidx = this.histidx;
+
+            let entry = this.history[i];
+            if (entry.startsWith(this.partial)) {
+                this.elem.value = entry;
+                this.elem.setSelectionRange(entry.length, entry.length);
+                break;
+            }
+            if (this.loop == true && this.histidx == this.history.length - 1) {
+                this.histidx = -1;
+                i = -1;
+            }
+        }
+
     }
+
+    // end of class
 }
 
 export { Completer };
