@@ -25,8 +25,11 @@ from history after a debounce interval.
 ```
 // instantiate a twiglet Complete widget with no history and all defaults
 c1 = new t.completer({id: "completer1"});
-// andhand the input element to a parent element
+// and hand the input element to a parent element
 someelem.appendChild(c1.elem);
+
+// ...later on, in a processing flow
+let completerValue = c1.getValue();
 ```
 
 Constructor arguments:
