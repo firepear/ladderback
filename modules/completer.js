@@ -117,6 +117,10 @@ class Completer {
         }
     }
 
+    getValue() {
+        return this.elem.value;
+    }
+
     // end of class
 }
 
