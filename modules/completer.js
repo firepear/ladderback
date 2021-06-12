@@ -5,6 +5,9 @@
 // tab completion, operating on history in a most-recent-matches-first
 // manner
 
+// TODO turn Enter/Tab code into a function, which can also be called
+// by an element blur event
+
 class Completer {
     constructor({id, size = 35, history = [], histsize = 100, interval = 500}) {
         this.elem = document.createElement("input")
