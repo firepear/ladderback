@@ -5,9 +5,6 @@
 // tab completion, operating on history in a most-recent-matches-first
 // manner
 
-// TODO turn Enter/Tab code into a function, which can also be called
-// by an element blur event
-
 class Completer {
     constructor({id, size = 35, history = [], histsize = 100, interval = 500}) {
         this.elem = document.createElement("input")
@@ -18,6 +15,7 @@ class Completer {
         this.history = history;
         this.histsize = histsize;
         this.interval = interval;
+
         this.loop = false;
         this.timeout = null;     // timeout id from window.setTimeout
         this.partial = "";        // string user is completing on
@@ -26,29 +24,13 @@ class Completer {
         this.histidx = -1;        // position in history (needed for C-r)
 
         this.elem.addEventListener("keydown", this.debounce.bind(this));
+        this.elem.addEventListener("blur", this.cleanup.bind(this));
     }
 
     debounce(event) {
         window.clearTimeout(this.timeout);
-
         if (event.key == "Enter" || event.key == "Tab") {
-            // select the current value
-            if (this.history.length > 0) {
-                if (this.elem.value != this.history[0]) {
-                    // if current value is not the most recent history item, add it to history
-                    this.history.unshift(this.elem.value);
-                }
-            } else {
-                // no history, just add the current value
-                this.history.unshift(this.elem.value);
-            }
-            // reset histidx and loop
-            this.histidx = -1;
-            this.loop = false;
-            // pop last history value if we're over histsize
-            if (this.history.length > this.histsize) {
-                this.history.pop();
-            }
+            this.cleanup.bind(this);
             return;
         }
 
@@ -111,7 +93,28 @@ class Completer {
                 i = -1;
             }
         }
+    }
 
+    cleanup() {
+        window.clearTimeout(this.timeout);
+        if (this.elem.value != "") {
+            if (this.history.length > 0) {
+                if (this.elem.value != this.history[0]) {
+                    // if current value is not the most recent history item, add it to history
+                    this.history.unshift(this.elem.value);
+                }
+            } else {
+                // no history, just add the current value
+                this.history.unshift(this.elem.value);
+            }
+        }
+        // reset histidx and loop
+        this.histidx = -1;
+        this.loop = false;
+        // pop last history value if we're over histsize
+        if (this.history.length > this.histsize) {
+            this.history.pop();
+        }
     }
 
     // end of class
