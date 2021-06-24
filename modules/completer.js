@@ -5,6 +5,8 @@
 // tab completion, operating on history in a most-recent-matches-first
 // manner
 
+import { debounce } from './debounce.js';
+
 class Completer {
     constructor({id, size = 35, history = [], histsize = 100, interval = 500}) {
         this.elem = document.createElement("input")
@@ -23,43 +25,8 @@ class Completer {
         this.oldidx = 0;
         this.histidx = -1;        // position in history (needed for C-r)
 
-        this.elem.addEventListener("keydown", this.debounce.bind(this));
+        this.elem.addEventListener("keydown", debounce.bind(this));
         this.elem.addEventListener("blur", this.cleanup.bind(this));
-    }
-
-    debounce(event) {
-        window.clearTimeout(this.timeout);
-        if (event.key == "Enter" || event.key == "Tab") {
-            this.cleanup.bind(this);
-            return;
-        }
-
-        if (event.key == "r" && event.ctrlKey) {
-            // don't let C-r refresh the page while inside the input box
-            event.preventDefault();
-            event.stopPropagation();
-            this.loop = true;
-            this.partial = this.oldpartial;
-            this.histidx = this.oldidx;
-            this.search();
-            return;
-        }
-
-        if (event.isComposing || event.keyCode === 229) {
-            // handle Compose events for CJKT users by doing nothing
-            // see https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event
-            return;
-        }
-
-        if (this.partial != "" && this.loop == false) {
-            // if partial is set and loop is false, we're here because the user
-            // has CONTINUED typing after a search found a match.
-            this.histidx = -1;
-            this.partial = ""
-        }
-
-        // set a timeout and we're done
-        this.timeout = window.setTimeout(this.search.bind(this), this.interval);
     }
 
     search() {
