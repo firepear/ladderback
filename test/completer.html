@@ -1,6 +1,6 @@
 <html>
   <head>
-    <script type="module" src="t.js"></script>
+    <script type="module" src="../l.js"></script>
   </head>
   <body>
     <div id="c1">Completer widget (no history, default size): </div>
@@ -8,23 +8,23 @@
   </body>
   <script>
     'use strict';
-    let t;
+    let l;
     let c1;
     let c2;
     let comp1;
     let comp2;
 
     function initPage() {
-        // get a handle on the twiglet object
-        t = window.twiglet;
+        // get a handle on the ladderback object
+        l = window.ladderback;
         // and one on the body element
         c1 = document.getElementById("c1");
-        // instantiate a twiglet Complete widget with no history
-        comp1 = new t.completer({id: "testcomplete1"});
+        // instantiate a ladderback Complete widget with no history
+        comp1 = new l.completer({id: "testcomplete1"});
         c1.appendChild(comp1.elem)
         c2 = document.getElementById("c2");
-        // instantiate a twiglet Complete widget with no history
-        comp2 = new t.completer({id: "testcomplete2", size: 80,
+        // instantiate a ladderback Complete widget with no history
+        comp2 = new l.completer({id: "testcomplete2", size: 80,
                                  history: ['0','1','2','3','4','5','6','7','8','9',
                                            '10','11','12','13','14','15','16','17','18','19',
                                            '20','21','22','23','24','25','26','27','28','29',

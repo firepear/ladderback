@@ -1,17 +1,17 @@
-# twiglets
+# ladderback
 A Javascript widget library
 
 Not really much of a "library" yet, to be honest, as it contains one widget.
 
-## Using twiglets
+## Using ladderback
 
 Import the module:
 
-`<script type="module" src="./path/to/twiglets/t.js"></script>`
+`<script type="module" src="./path/to/ladderback/l.js"></script>`
 
-Get a handle on the twiglet object:
+Get a handle on the ladderback object:
 
-`t = window.twiglet;`
+`l = window.ladderback;`
 
 Then instantiate widgets as you please.
 
@@ -23,10 +23,10 @@ A Completer is an `input` field, with history, which autocompletes
 from history after a debounce interval.
 
 ```
-// instantiate a twiglet Complete widget with no history and all defaults
-c1 = new t.completer({id: "completer1"});
+// instantiate a ladderback Complete widget with no history and all defaults
+c1 = new l.completer({id: "completer1"});
 // and hand the input element to a parent element
-someelem.appendChild(c1.elem);
+someElem.appendChild(c1.elem);
 
 // ...later on, in a processing flow
 let completerValue = c1.getValue();

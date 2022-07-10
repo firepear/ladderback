@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <script type="module" src="../l.js"></script>
+  </head>
+  <body>
+
+  </body>
+  <script>
+    'use strict';
+    let l;
+    let tdiv;
+    let tag1;
+
+    function initPage() {
+        // get a handle on the ladderback object
+        l = window.ladderback;
+        // and one on the body element
+        tdiv = document.getElementById("tdiv");
+        // instantiate a ladderback Complete widget with no history
+        tag1 = new l.tagger({id: "test"});
+        tdiv.appendChild(tag1.elem)
+    }
+
+    // wait for page load to call the initialization function, because
+    // modules load asynchronously
+    document.addEventListener("DOMContentLoaded", initPage);
+  </script>
+</html>
