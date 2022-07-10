@@ -14,7 +14,7 @@ class Completer {
         this.elem.name = id;
         this.elem.size = size;
 
-        this.history = history;
+        this.history = this.loadHistory(history);
         this.histsize = histsize;
         this.interval = interval;
 
@@ -29,6 +29,17 @@ class Completer {
         this.elem.addEventListener("blur", this.cleanup.bind(this));
     }
 
+    loadHistory(history) {
+        let histlist = [];
+        for (const item of history) {
+            if (typeof(item) != "string") {
+                throw `history item ${item} (${typeof(item)}) is not a string`;
+            }
+            histlist.unshift(item);
+        }
+        return histlist;
+    }
+
     search() {
         // we end up here because the user has typed something and our debounce
         // timer has expired. first order of business is to set the timeout var
@@ -38,7 +49,8 @@ class Completer {
         if (this.elem.value == "") {
             return;
         }
-        // set partial to current input value unless loop mode is active
+        // set partial to current input value unless loop mode is
+        // active (loop is set in debounce.js)
         if (this.loop == false) {
             this.partial = this.elem.value;
             this.oldpartial = this.elem.value;

@@ -37,10 +37,10 @@ Constructor arguments:
 | Name     | Opt | Default | Desc                                                                    |
 |----------|-----|--------:|-------------------------------------------------------------------------|
 | id       | No  | None    | Sets the `id` and `name` attributes of the widget's `input` element     |
-| size     | Yes | 35      | Width of the `input` field |
-| history  | Yes | `[]`    | Allows prepopulation of widget history |
-| histsize | Yes | 100     | How many entries to keep in history |
-| interval | Yes | 500     | Debounce delay, in milliseconds |
+| size     | Yes | 35      | Width of the `input` field                                              |
+| history  | Yes | `[]`    | List of strings; allows prepopulation of widget history                 |
+| histsize | Yes | 100     | How many entries to keep in history                                     |
+| interval | Yes | 500     | Debounce delay, in milliseconds                                         |
 
 Autocomplete works like it does in `bash` and other applications which
 use the `readline` library, except with a debounce timer rather than
