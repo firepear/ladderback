@@ -1,7 +1,12 @@
 # ladderback
-A Javascript widget library
+The ladder-backed woodpecker (Dryobates scalaris) is a small
+woodpecker with a barred pattern on its back and wings resembling the
+rungs of a ladder. It can be found year-round over the southwestern
+US, most of Mexico, and as far south as Nicaragua.
 
-Not really much of a "library" yet, to be honest, as it contains one widget.
+[![Image of a ladderback woodpecker, perched on a juniper twig](ladderback.jpg)](ladderback.jpg)  
+
+This is a small Javascript widget library.
 
 ## Using ladderback
 
