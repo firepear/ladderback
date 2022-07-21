@@ -6,7 +6,9 @@ US, most of Mexico, and as far south as Nicaragua.
 
 [![Image of a ladderback woodpecker, perched on a juniper twig](ladderback.jpg)](ladderback.jpg)  
 
-This is a small Javascript widget library.
+This is a small Javascript widget library with zero dependencies. It
+also does not interoperate with modern frameworks, and is almost
+certainly not what you're looking for :)
 
 ## Using ladderback
 
