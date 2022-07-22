@@ -17,9 +17,9 @@ Import the module:
 
 `<script type="module" src="./path/to/ladderback/l.js"></script>`
 
-Since ladderback uses ES6 modules, which load asynchronously, wait
-until the `DOMContentLoaded` event has fired, then get a handle on the
-ladderback object:
+Since ladderback uses ES6 modules, wait until the `DOMContentLoaded`
+event has fired, then get a handle on the ladderback object using a
+mechanism like:
 
 ```
 <script>
