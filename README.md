@@ -45,7 +45,8 @@ call `l.log(msg)`.
 ### Completer
 
 A Completer is an `input` field, with history, which autocompletes
-from history after a debounce interval.
+from local history after a debounce interval. There is no provision
+for live, networked fetching of completions.
 
 ```
 // instantiate a ladderback Complete widget with no history and all defaults
