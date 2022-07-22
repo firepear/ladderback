@@ -1,10 +1,19 @@
 <html>
   <head>
     <script type="module" src="../l.js"></script>
+    <style>
+      pre { border: solid thin #005;
+            background-color: #eef;
+          }
+    </style>
   </head>
   <body>
     <div id="c1">Completer widget (no history, default size): </div>
+    <p></p>
     <div id="c2">Completer widget (99 history, size 80): </div>
+    <p></p>
+    <hr/>
+    <pre id="debugoutput"></pre>
   </body>
   <script>
     'use strict';
@@ -17,6 +26,7 @@
     function initPage() {
         // get a handle on the ladderback object
         l = window.ladderback;
+        l.i.toggleDebug();
         // and one on the body element
         c1 = document.getElementById("c1");
         // instantiate a ladderback Complete widget with no history

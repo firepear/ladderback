@@ -1,17 +1,31 @@
 export function debounce(event) {
     window.clearTimeout(this.timeout);
     if (event.key == "Enter" || event.key == "Tab") {
-        this.cleanup.bind(this);
+        l.i.log(`${this.id}: debounce triggering cleanup on ${event.key}`);
+        //this.cleanup.bind(this)();
+        this.cleanup();
         return;
     }
 
-    if (event.key == "r" && event.ctrlKey) {
-        // don't let C-r refresh the page while inside the input box
+    if (event.key == "u" && event.ctrlKey) {
+        // in bash, C-u kills the current line of input. this is a
+        // convenient way to empty the input box
         event.preventDefault();
         event.stopPropagation();
+        this.elem.value = "";
+        this.partial = this.elem.value;
+        this.oldpartial = this.elem.value;
+        return
+    }
+
+    if (event.key == "r" && event.ctrlKey) {
+        // user has requested a repeat search. don't let C-r refresh
+        // the page while inside the input box
+        event.preventDefault();
+        event.stopPropagation();
+        // set loop to true
         this.loop = true;
         this.partial = this.oldpartial;
-        this.histidx = this.oldidx;
         this.search();
         return;
     }
