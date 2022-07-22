@@ -81,7 +81,7 @@ through history.
 Pressing `Ctrl-u` (as expected from `readline`) blanks the input box,
 as a convenience function.
 
-Pressing `Enter` (as expected from `bash`); or pressing `Tab`, or clicking
+Pressing `Enter` (as expected from `bash`), or pressing `Tab` / clicking
 away to blur the input element (as expected from browsers), finalizes the
 completion by adding the current text to history and doing a bit of
 internal housekeeping.
