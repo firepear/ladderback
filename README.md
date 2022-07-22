@@ -56,8 +56,10 @@ comp1 = new l.completer({id: "completer1",
                          parent: document.getElementById("someElem")});
 
 // ...later on, in a processing flow
-let completerValue = c1.getData();
+let completerValue = comp1.getData();
 ```
+
+The new widget will be appended as a child of `someElem`.
 
 Constructor arguments:
 
