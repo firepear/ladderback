@@ -5,6 +5,7 @@ rungs of a ladder. It can be found year-round over the southwestern
 US, most of Mexico, and as far south as Nicaragua.
 
 [![Image of a ladderback woodpecker, perched on a juniper twig](ladderback.jpg)](ladderback.jpg)  
+_A female ladderback, on a juniper branch in New Mexico_
 
 This is a small Javascript widget library with zero dependencies. It
 also does not interoperate with modern frameworks, and is almost
