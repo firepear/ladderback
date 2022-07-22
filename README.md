@@ -68,11 +68,13 @@ Constructor arguments:
 
 Autocomplete works like it does in `bash` and other applications which
 use the `readline` library, except with a debounce timer rather than
-using tab to initiate completion: when the timer expires, history will
-be searched and the value of the widget's `input` field will be used
-as a prefix search, begining with the most recent element of the
-history. The first match found will be swapped in as the value of the
-`input`.
+using tab to initiate completion.
+
+When the interval of time defined by the `interval` constructor
+parameter has elapsed since the last keypress, history will be
+searched with the current value of the widget's `input` field will be
+used as a prefix. The first match found will be swapped in as the
+value of the `input`.
 
 Pressing `Ctrl-r` (as expected from `readline`) performs another
 history search, starting from the last search result and looping
