@@ -60,15 +60,20 @@ class Completer {
             this.oldpartial = this.elem.value;
         }
 
-        // look through history
+        // look through history. this loop is horribly finicky, and
+        // one day i'll figure out how to drive it in a more sane
+        // fashion
         l.i.log(`${this.id}: searching: ${this.partial}, loop ${this.loop}`);
-        for (var i = this.histidx + 1; i < this.history.length; i++) {
+        for (var i = this.histidx + 1; i <= this.history.length; i++) {
             // we handle histidx manually, which is why i is set one
             // ahead in the `for`
             this.histidx++;
 
             let entry = this.history[i];
-            if (entry.startsWith(this.partial)) {
+            // `undefined` has to be guarded against because looping
+            // can let i walk off the array by one. catching that here
+            // lets us fall to the loop reset below
+            if (entry != undefined && entry.startsWith(this.partial)) {
                 // found a match. set the input box to the match
                 this.elem.value = entry;
                 // and move the cursor to the end of it
@@ -76,7 +81,7 @@ class Completer {
                 l.i.log(`${this.id}: match: ${entry}`);
                 break;
             }
-            if (this.loop == true && this.histidx == this.history.length - 1) {
+            if (this.loop == true && this.histidx >= this.history.length - 1) {
                 // if loop is on and we're at the end of the history
                 // list, reset i and histidx to start over. this lets
                 // the user C-r infinitely, as expected from bash
