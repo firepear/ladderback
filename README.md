@@ -21,9 +21,21 @@ Since ladderback uses ES6 modules, which load asynchronously, wait
 until the `DOMContentLoaded` event has fired, then get a handle on the
 ladderback object:
 
-`l = window.ladderback;`
+```
+<script>
+'use strict';
+let l;
 
-At this point you can instantiate widgets as you please.
+function initLadderback() {
+    l = window.ladderback;
+
+    // init widgets here, or in another function/script called later
+}
+
+document.addEventListener("DOMContentLoaded", initLadderback);
+</script>
+```
+
 
 ### Debugging
 
