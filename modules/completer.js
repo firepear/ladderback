@@ -8,32 +8,48 @@
 import { debounce } from './debounce.js';
 
 class Completer {
-    constructor({id, size = 35, history = [], histsize = 100, interval = 500}) {
+    constructor({id, parent, size = 35, history = [], histsize = 100, interval = 500}) {
         this.l = window.ladderback;
         this.id = id;
+        if (id == undefined || parent == undefined) {
+            l.log("Completer: `id` and `parent` parameters must be speficied; bailing");
+            throw("Completer: `id` and `parent` parameters must be speficied; bailing");
+        }
+        if (parent.nodeType == undefined) {
+            l.log(`${this.id}: 'parent' must be a valid node; bailing`);
+            throw(`${this.id}: 'parent' must be a valid node; bailing`);
+        }
+
+        // create out input node and set parameters on it
         this.elem = document.createElement("input");
         this.elem.id = id;
         this.elem.name = id;
         this.elem.size = size;
-
+        this.elem.className = "lbCompleter";
+        // then append to our parent element
+        parent.appendChild(this.elem);
+        // set remaining constructor params
         this.history = this.loadHistory(history);
         this.histsize = histsize;
         this.interval = interval;
 
-        this.loop = false;
+        // setup variables which don't come directly from the constructor call
+        this.loop = false;     // are we in "loop mode" (C-r being invoked)?
         this.timeout = null;   // timeout id from window.setTimeout
         this.partial = "";     // string user is completing on
         this.oldpartial = "";  // partial before searches are run (needed for C-r)
         this.histidx = -1;     // position in history (needed for C-r)
         this.lastmatch = ""
 
+        // finally, set the debounce trigger (which is our event loop driver)
         this.elem.addEventListener("keydown", debounce.bind(this));
+        // and a call to cleanup on blur
         this.elem.addEventListener("blur", this.cleanup.bind(this));
     }
 
     loadHistory(history) {
-        l.i.log(`${this.id}: loading history`);
         let histlist = [];
+        if (history.length > 0) { l.log(`${this.id}: loading history`) };
         for (const item of history) {
             if (typeof(item) != "string") {
                 throw `history item ${item} (${typeof(item)}) is not a string`;
@@ -64,7 +80,7 @@ class Completer {
         // look through history. this loop is horribly finicky, and
         // one day i'll figure out how to drive it in a more sane
         // fashion
-        l.i.log(`${this.id}: searching: ${this.partial}, loop ${this.loop}`);
+        l.log(`${this.id}: searching: ${this.partial}, loop ${this.loop}`);
         for (var i = this.histidx + 1; i <= this.history.length; i++) {
             // we handle histidx manually, which is why i is set one
             // ahead in the `for`
@@ -84,7 +100,7 @@ class Completer {
                     this.elem.setSelectionRange(entry.length, entry.length);
                     // update lastmatch
                     this.lastmatch = entry;
-                    l.i.log(`${this.id}: match: ${entry}`);
+                    l.log(`${this.id}: match: ${entry}`);
                     break;
                 }
             }
@@ -92,7 +108,7 @@ class Completer {
                 // if loop is on and we're at the end of the history
                 // list, reset i and histidx to start over. this lets
                 // the user C-r infinitely, as expected from bash
-                l.i.log(`${this.id}: reverse search is looping`);
+                l.log(`${this.id}: reverse search is looping`);
                 this.histidx = -1;
                 i = -1;
             }
@@ -100,21 +116,21 @@ class Completer {
     }
 
     cleanup() {
-        l.i.log(`${this.id}: cleanup`);
+        l.log(`${this.id}: cleanup`);
         window.clearTimeout(this.timeout);
         if (this.elem.value != "") {
             if (this.history.length > 0) {
                 if (this.elem.value != this.history[0]) {
                     // if current value is not the most recent history item, add it to history
                     this.history.unshift(this.elem.value);
-                    l.i.log(`${this.id}: added ${this.elem.value} to history; len ${this.history.length}`);
+                    l.log(`${this.id}: added ${this.elem.value} to history; len ${this.history.length}`);
                 } else {
-                    l.i.log(`${this.id}: not adding ${this.elem.value} to history; matches last entry`);
+                    l.log(`${this.id}: not adding ${this.elem.value} to history; matches last entry`);
                 }
             } else {
                 // no history, just add the current value
                 this.history.unshift(this.elem.value);
-                l.i.log(`${this.id}: added ${this.elem.value} to history; len ${this.history.length}`);
+                l.log(`${this.id}: added ${this.elem.value} to history; len ${this.history.length}`);
             }
         }
         // reset everything
@@ -125,11 +141,11 @@ class Completer {
         // pop last history value if we're over histsize
         if (this.history.length > this.histsize) {
             this.history.pop();
-            l.i.log(`${this.id}: over histlen, popping`);
+            l.log(`${this.id}: over histlen, popping`);
         }
     }
 
-    getValue() {
+    getData() {
         return this.elem.value;
     }
 

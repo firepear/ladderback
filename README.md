@@ -16,21 +16,27 @@ Import the module:
 
 `<script type="module" src="./path/to/ladderback/l.js"></script>`
 
-Get a handle on the ladderback object:
+Since ladderback uses ES6 modules, which load asynchronously, wait
+until the `DOMContentLoaded` event has fired, then get a handle on the
+ladderback object:
 
 `l = window.ladderback;`
 
-Then instantiate widgets as you please.
+At this point you can instantiate widgets as you please.
 
 ### Debugging
 
-Enable ladderback's debug mode by calling `l.toggleDebug();` at any
-time, though before instantiating widgets is ideal.
+Enable ladderback's debug messages from widgets by calling
+`l.toggleDebug();` at any time, though before instantiating widgets is
+ideal to catch all possible messages.
 
 If you have test page and place an element with the id `debugoutput`
 on it, ladderback will write debug entries to it. See the test pages
 in this repo for CSS hints. As a fallback, debug messages will go to
 the JS console.
+
+If you'd like to have app messages appear in the same stream, you can
+call `l.log(msg)`.
 
 
 ## Widget reference
@@ -42,12 +48,11 @@ from history after a debounce interval.
 
 ```
 // instantiate a ladderback Complete widget with no history and all defaults
-c1 = new l.completer({id: "completer1"});
-// and hand the input element to a parent element
-someElem.appendChild(c1.elem);
+comp1 = new l.completer({id: "completer1",
+                         parent: document.getElementById("someElem")});
 
 // ...later on, in a processing flow
-let completerValue = c1.getValue();
+let completerValue = c1.getData();
 ```
 
 Constructor arguments:
@@ -55,6 +60,7 @@ Constructor arguments:
 | Name     | Opt | Default | Desc                                                                    |
 |----------|-----|--------:|-------------------------------------------------------------------------|
 | id       | No  | None    | Sets the `id` and `name` attributes of the widget's `input` element     |
+| parent   | No  | None    | The DOM id of the page element where the Completer should appear        |
 | size     | Yes | 35      | Width of the `input` field                                              |
 | history  | Yes | `[]`    | List of strings; allows prepopulation of widget history                 |
 | histsize | Yes | 100     | How many entries to keep in history                                     |
@@ -79,3 +85,12 @@ Pressing `Enter` (as expected from `bash`); or pressing `Tab`, or clicking
 away to blur the input element (as expected from browsers), finalizes the
 completion by adding the current text to history and doing a bit of
 internal housekeeping.
+
+## Styling
+
+All ladderback widgets set CSS classes on themselves, so you can style them.
+
+| Widget    | className     | Elements         |
+|-----------|---------------|------------------|
+| Completer | `lbCompleter` | `input`          |
+| Tagger    | `lbTagger`    | `button`, `span` |

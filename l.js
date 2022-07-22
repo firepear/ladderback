@@ -11,13 +11,18 @@ window.ladderback = { completer: Completer,
                       i:         { debug: false, logfail: true }
                     };
 
+// debug enable function
 window.ladderback.toggleDebug = function () {
     window.ladderback.i.debug = true;
     window.ladderback.i.dout  = document.getElementById("debugoutput");
 }
 
-    // add the debug fuction
-window.ladderback.i.log = function (msg) {
+// logging function
+//
+// sends messages to an element with id `debugoutput` and keeps that
+// element scrolled to the bottom, if it exists and that is
+// possible. logs to console as a fallback.
+window.ladderback.log = function (msg) {
     if (window.ladderback.i.debug) {
         try {
             window.ladderback.i.dout.append(`${msg}\n`);

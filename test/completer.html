@@ -19,23 +19,18 @@
   <script>
     'use strict';
     let l;
-    let c1;
-    let c2;
     let comp1;
     let comp2;
 
     function initPage() {
-        // get a handle on the ladderback object
+        // get a handle on the ladderback object and enable debugging
         l = window.ladderback;
         l.toggleDebug();
-        // and one on the body element
-        c1 = document.getElementById("c1");
-        // instantiate a ladderback Complete widget with no history
-        comp1 = new l.completer({id: "testcomplete1"});
-        c1.appendChild(comp1.elem)
-        c2 = document.getElementById("c2");
-        // instantiate a ladderback Complete widget with no history
+        // instantiate a ladderback Completer widget with all defaults
+        comp1 = new l.completer({id: "testcomplete1", parent: document.getElementById("c1")});
+        // and another with a 99 element history
         comp2 = new l.completer({id: "testcomplete2", size: 80,
+                                 parent: document.getElementById("c2"),
                                  history: ['0','1','2','3','4','5','6','7','8','9',
                                            '10','11','12','13','14','15','16','17','18','19',
                                            '20','21','22','23','24','25','26','27','28','29',
@@ -46,7 +41,6 @@
                                            '70','71','72','73','74','75','76','77','78','79',
                                            '80','81','82','83','84','85','86','87','88','89',
                                            '90','91','92','93','94','95','96','97','98']});
-        c2.appendChild(comp2.elem)
     }
 
     // wait for page load to call the initialization function, because
