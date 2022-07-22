@@ -22,6 +22,17 @@ Get a handle on the ladderback object:
 
 Then instantiate widgets as you please.
 
+### Debugging
+
+Enable ladderback's debug mode by calling `l.toggleDebug();` at any
+time, though before instantiating widgets is ideal.
+
+If you have test page and place an element with the id `debugoutput`
+on it, ladderback will write debug entries to it. See the test pages
+in this repo for CSS hints. As a fallback, debug messages will go to
+the JS console.
+
+
 ## Widget reference
 
 ### Completer
@@ -61,7 +72,10 @@ Pressing `Ctrl+r` (as expected from `readline`) performs another
 history search, starting from the last search result and looping
 through history.
 
-Pressing `Enter` (as expected from `bash`), or pressing `Tab`/clicking
+Pressing `Ctrl-u` (as expected from `readline`) blanks the input box,
+as a convenience function.
+
+Pressing `Enter` (as expected from `bash`); or pressing `Tab`, or clicking
 away to blur the input element (as expected from browsers), finalizes the
 completion by adding the current text to history and doing a bit of
 internal housekeeping.

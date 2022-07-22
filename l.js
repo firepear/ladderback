@@ -11,7 +11,7 @@ window.ladderback = { completer: Completer,
                       i:         { debug: false, logfail: true }
                     };
 
-window.ladderback.i.toggleDebug = function () {
+window.ladderback.toggleDebug = function () {
     window.ladderback.i.debug = true;
     window.ladderback.i.dout  = document.getElementById("debugoutput");
 }
