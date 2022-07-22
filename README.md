@@ -74,9 +74,9 @@ as a prefix search, begining with the most recent element of the
 history. The first match found will be swapped in as the value of the
 `input`.
 
-Pressing `Ctrl+r` (as expected from `readline`) performs another
+Pressing `Ctrl-r` (as expected from `readline`) performs another
 history search, starting from the last search result and looping
-through history.
+through history with subsequent presses of `Ctrl-r`.
 
 Pressing `Ctrl-u` (as expected from `readline`) blanks the input box,
 as a convenience function.
