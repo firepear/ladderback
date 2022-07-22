@@ -25,6 +25,7 @@ class Completer {
         this.partial = "";     // string user is completing on
         this.oldpartial = "";  // partial before searches are run (needed for C-r)
         this.histidx = -1;     // position in history (needed for C-r)
+        this.lastmatch = ""
 
         this.elem.addEventListener("keydown", debounce.bind(this));
         this.elem.addEventListener("blur", this.cleanup.bind(this));
@@ -74,12 +75,18 @@ class Completer {
             // can let i walk off the array by one. catching that here
             // lets us fall to the loop reset below
             if (entry != undefined && entry.startsWith(this.partial)) {
-                // found a match. set the input box to the match
-                this.elem.value = entry;
-                // and move the cursor to the end of it
-                this.elem.setSelectionRange(entry.length, entry.length);
-                l.i.log(`${this.id}: match: ${entry}`);
-                break;
+                // found a possible match. check against the previous
+                // match and do nothing if they're the same
+                if (entry != this.lastmatch) {
+                    // set the input box to the match
+                    this.elem.value = entry;
+                    // and move the cursor to the end of it
+                    this.elem.setSelectionRange(entry.length, entry.length);
+                    // update lastmatch
+                    this.lastmatch = entry;
+                    l.i.log(`${this.id}: match: ${entry}`);
+                    break;
+                }
             }
             if (this.loop == true && this.histidx >= this.history.length - 1) {
                 // if loop is on and we're at the end of the history

@@ -1,3 +1,9 @@
+## v0.3.0 (2022-07-22)
+
+- Completer
+  - `C-r` skips matches when they are the same as the previous match
+
+
 ## v0.2.0 (2022-07-21)
 
 - Completer
