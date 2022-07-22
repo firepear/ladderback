@@ -21,6 +21,7 @@ window.ladderback.i.log = function (msg) {
     if (window.ladderback.i.debug) {
         try {
             window.ladderback.i.dout.append(`${msg}\n`);
+            window.ladderback.i.dout.scrollTo(0, window.ladderback.i.dout.scrollHeight);
         } catch (err) {
             if (window.ladderback.i.logfail) {
                 console.log("ladderback: can't find debugoutput");

@@ -4,10 +4,11 @@
   - Added `C-u` binding to wipe current input (like bash)
   - Fixed bug which allowed history to be initialized with non-string
     values
+  - Many, many smaller fixes and improvements
 - Other
   - Added debug mode and logging func
+  - Better docs
   - `debounce` function modularized
-  - General architectural changes and improvements
 
 
 ## v0.1.0 (2021-06-12)
