@@ -105,8 +105,10 @@ class Completer {
                 l.i.log(`${this.id}: added ${this.elem.value} to history; len ${this.history.length}`);
             }
         }
-        // reset histidx and loop
+        // reset everything
         this.histidx = -1;
+        this.partial = this.elem.value;
+        this.oldpartial = this.elem.value;
         this.loop = false;
         // pop last history value if we're over histsize
         if (this.history.length > this.histsize) {
