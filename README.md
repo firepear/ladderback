@@ -47,8 +47,8 @@ call `l.log(msg)`.
 A Completer is an `input` field, with history, which autocompletes
 from local history after a debounce interval. There is no provision
 for live, networked fetching of completions, though you can generate a
-list via any mechanism you like then use it to pre-populate widget
-history during the constructor call.
+list via any mechanism you like and pre-populate widget history with
+it during the constructor call.
 
 ```
 // instantiate a ladderback Complete widget with no history and all defaults
