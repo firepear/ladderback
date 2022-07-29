@@ -9,7 +9,7 @@ export function debounce(event) {
     }
 
     if (event.key == "Enter" || event.key == "Tab") {
-        l.i.log(`${this.id}: debounce triggering cleanup on ${event.key}`);
+        l.log(`${this.id}: debounce triggering cleanup on ${event.key}`);
         this.cleanup();
         return;
     }

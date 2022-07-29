@@ -73,7 +73,7 @@ let completerValue = comp1.getData();
 
 The new widget will be appended as a child of `someElem`.
 
-Constructor arguments:
+#### Constructor arguments
 
 | Name     | Opt | Default | Desc                                                                    |
 |----------|-----|--------:|-------------------------------------------------------------------------|
@@ -83,6 +83,8 @@ Constructor arguments:
 | history  | Yes | `[]`    | List of strings; allows prepopulation of widget history                 |
 | histsize | Yes | 100     | How many entries to keep in history                                     |
 | interval | Yes | 500     | Debounce delay, in milliseconds                                         |
+
+#### Usage
 
 Autocomplete works like it does in `bash` and other applications which
 use the `readline` library, except with a debounce timer rather than
@@ -105,6 +107,9 @@ Pressing `Enter` (as expected from `bash`), or pressing `Tab` / clicking
 away to blur the input element (as expected from browsers), finalizes the
 completion by adding the current text to history and doing a bit of
 internal housekeeping.
+
+When finalization occurs (as described in previous para), a bubbling
+event named `${id}-evt` will be dispatched.
 
 ## Styling
 

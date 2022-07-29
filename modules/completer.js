@@ -41,6 +41,10 @@ class Completer {
         this.histidx = -1;     // position in history (needed for C-r)
         this.lastmatch = ""
 
+        // create an event unique to this widget which can bubble up
+        // to alert parent widgets of state change
+        this.event = new CustomEvent(`${id}-evt`, {bubbles: true});
+
         // finally, set the debounce trigger (which is our event loop driver)
         this.elem.addEventListener("keydown", debounce.bind(this));
         // and a call to cleanup on blur
@@ -132,8 +136,13 @@ class Completer {
                 this.history.unshift(this.elem.value);
                 l.log(`${this.id}: added ${this.elem.value} to history; len ${this.history.length}`);
             }
+            // one way or another, if we're here, a selection has been
+            // made. dispatch our event
+            l.log(`${this.id}: dispatching state change event`);
+            this.elem.dispatchEvent(this.event);
         }
-        // reset everything
+
+        // now do housekeeping. reset everything:
         this.histidx = -1;
         this.partial = this.elem.value;
         this.oldpartial = this.elem.value;
