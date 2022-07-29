@@ -1,9 +1,20 @@
 <html>
   <head>
     <script type="module" src="../l.js"></script>
+    <style>
+      body {display: flex; flex-flow: column; height: 99%;}
+      div { margin-bottom: 1rem; }
+      pre { border: solid thin #005;
+            background-color: #eef;
+            overflow: auto;
+            flex: 1;
+          }
+    </style>
   </head>
   <body>
-
+    <p>The div under this holds our tagger</p>
+    <div id="tdiv"></div>
+    <pre id="debugoutput"></pre>
   </body>
   <script>
     'use strict';
@@ -14,11 +25,12 @@
     function initPage() {
         // get a handle on the ladderback object
         l = window.ladderback;
+        l.toggleDebug();
         // and one on the body element
         tdiv = document.getElementById("tdiv");
         // instantiate a ladderback Complete widget with no history
-        tag1 = new l.tagger({id: "test"});
-        tdiv.appendChild(tag1.elem)
+        tag1 = new l.tagger({id: "tag1", parent: tdiv,
+                             tags: ["cat", "dog", "dogma", "cobalt", "emu"]});
     }
 
     // wait for page load to call the initialization function, because
