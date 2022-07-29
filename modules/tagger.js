@@ -5,7 +5,7 @@
 import { Completer } from './completer.js';
 
 class Tagger {
-    constructor({id, parent, tags=[]}) {
+    constructor({id, parent, size=20, tags=[]}) {
         this.l = window.ladderback;
         this.id = id;
         if (id == undefined || parent == undefined) {
@@ -20,19 +20,19 @@ class Tagger {
         // create the continer div which will hold the infividual
         // widget elements
         this.container = document.createElement("div")
-        this.container.className = 'ladderbackTagger';
+        this.container.className = 'lbTagger';
 
         // build the elements we need. first, a completer
         this.complete = new Completer({id: `${id}-completer`, parent: this.container,
-                                       size: '20', history: tags});
+                                       size: size, history: tags});
         // then a button
         this.plus = document.createElement("button");
         this.plus.append("+");
-        this.plus.className = 'ladderbackTagger';
+        this.plus.className = 'lbTagAdd';
         this.plus.addEventListener("click", this.createTag.bind(this));
         // and a div to hold the selected tags
         this.tagbox = document.createElement("div");
-        this.tagbox.className = 'ladderbackTagger';
+        this.tagbox.className = 'lbTagBox';
 
         this.container.appendChild(this.complete.elem);
         this.container.appendChild(this.plus);
@@ -45,16 +45,22 @@ class Tagger {
     createTag() {
         l.log(`${this.id}: button clicked; creating tag`);
         let value = this.complete.getData()
-        l.log(`${this.id}: got completer value ${value}`);
-        //
+        // check we already have this one
+        if (this.getData().includes(value)) {
+            l.log(`${this.id}: tag '${value}' already exists; not adding`);
+            return;
+        }
+        // build the tag
         let tag = document.createElement("span");
         tag.id = `${this.id}-tag-${value}`;
-        tag.append(value);
+        tag.append(value, " ");
+        tag.className = "lbTagTag";
         let closer = document.createElement("span");
         closer.append("ⓧ");
+        closer.className = "lbTagDel";
+        closer.style.cursor = "pointer";
         closer.addEventListener("click",
                                 function() { this.destroyTag(tag.id); }.bind(this));
-        closer.style.marginRight = "0.5rem";
         tag.append(closer);
         this.tagbox.appendChild(tag);
         this.tags.push(tag);
@@ -62,6 +68,16 @@ class Tagger {
 
     destroyTag(tagId) {
         l.log(`${this.id}: destroyTag with id ${tagId}`);
+        for (let i in this.tags) {
+            if (this.tags[i].id == tagId) {
+                this.tagbox.removeChild(this.tags[i]);
+                this.tags.splice(i, 1);
+            }
+        }
+    }
+
+    getData() {
+        return this.tags.map(x => x.firstChild.textContent);
     }
 }
 

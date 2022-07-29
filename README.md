@@ -111,11 +111,21 @@ internal housekeeping.
 When finalization occurs (as described in previous para), a bubbling
 event named `${id}-evt` will be dispatched.
 
-## Styling
+#### Styling
 
-All ladderback widgets set CSS classes on themselves, so you can style them.
+| className     | Notes                                                 |
+|---------------|-------------------------------------------------------|
+| `lbCompleter` | Completer only has one element to style: it's `input` |
 
-| Widget    | className     | Elements         |
-|-----------|---------------|------------------|
-| Completer | `lbCompleter` | `input`          |
-| Tagger    | `lbTagger`    | `button`, `span` |
+
+
+### Tagger
+
+#### Styling
+
+| className |  Notes |
+|-----------|--------------------------------------------------------------------|
+| lbTagger  | The `div` which contains all other elements of the widget          |
+| lbTagAdd  | The `+` button                                                     |
+| lbTagTag  | The outer `span` of each tag in the list                           |
+| lbTagDel  | The `x` a user clicks to remove a tag from the list                |

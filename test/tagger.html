@@ -3,17 +3,32 @@
     <script type="module" src="../l.js"></script>
     <style>
       body {display: flex; flex-flow: column; height: 99%;}
-      div { margin-bottom: 1rem; }
       pre { border: solid thin #005;
-            background-color: #eef;
+            background-color: #eed;
+            padding: 0.1rem; 
             overflow: auto;
             flex: 1;
           }
+      .lbTagger { margin-bottom: 0.5rem; }
+      .lbTagBox { margin-top: 0.2rem; }
+      .lbTagTag { border: solid thin #99d; border-radius: 0.5rem;
+                  padding: 0.1rem; margin-right: 0.5rem;
+                  background-color: #eef; font-family: sans-serif;
+                }
+      .lbTagDel { color: #99d; }
     </style>
   </head>
   <body>
-    <p>The div under this holds our tagger</p>
+    <p>
+      The div under this holds our tagger. Completer has history
+      of <tt>["cat", "dog", "dogma", "cobalt", "emu", "dice"]</tt>
+    </p>
     <div id="tdiv"></div>
+    <div>
+      This button is not part of the tagger widget. Clicking it gets
+      the current set of tags [i]from[/i] the widget.
+      <button onclick="l.log(`[${tag1.getData()}]`)">getData</button>
+    </div>
     <pre id="debugoutput"></pre>
   </body>
   <script>
@@ -30,7 +45,7 @@
         tdiv = document.getElementById("tdiv");
         // instantiate a ladderback Complete widget with no history
         tag1 = new l.tagger({id: "tag1", parent: tdiv,
-                             tags: ["cat", "dog", "dogma", "cobalt", "emu"]});
+                             tags: ["cat", "dog", "dogma", "cobalt", "emu", "dice"]});
     }
 
     // wait for page load to call the initialization function, because
