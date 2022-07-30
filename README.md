@@ -68,7 +68,7 @@ comp1 = new l.completer({id: "completer1",
                          parent: document.getElementById("someElem")});
 
 // ...later on, in a processing flow
-let completerValue = comp1.getData();
+let completerText = comp1.getData();
 ```
 
 The new widget will be appended as a child of `someElem`.
@@ -128,7 +128,7 @@ list of tags, for whatever purpose you might have.
 let tag1 = new l.Tagger(id: "tagger1", parent: someNode);
 
 // ...later on, in a processing flow
-let tags = tag1.getData()
+let tagList = tag1.getData()
 ```
 
 The new widget will be appended as a child of `someNode`.
@@ -136,7 +136,7 @@ The new widget will be appended as a child of `someNode`.
 #### Constructor arguments
 
 | Name   | Opt | Default | Desc |
-|--------|-----|---------|------|
+|--------|-----|--------:|------|
 | id     | No  | None    | Sets the `id` and `name` attributes of the widget's `input` element     |
 | parent | No  | None    | The DOM id of the page element where the Completer should appear        |
 | size   | Yes | 20      | Pass-through to set the size of the Completer |
