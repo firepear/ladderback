@@ -11,7 +11,7 @@ This is a small Javascript widget library with zero dependencies. It
 also does not interoperate with modern frameworks, and is almost
 certainly not what you're looking for :)
 
-## Using ladderback
+# Using ladderback
 
 Import the module:
 
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", initLadderback);
 ```
 
 
-### Debugging
+## Debugging
 
 Enable ladderback's debug messages from widgets by calling
 `l.toggleDebug();` at any time, though before instantiating widgets is
@@ -52,9 +52,9 @@ If you'd like to have app messages appear in the same stream, you can
 call `l.log(msg)`.
 
 
-## Widget reference
+# Widget reference
 
-### Completer
+## Completer
 
 A Completer is an `input` field, with history, which autocompletes
 from local history after a debounce interval. There is no provision
@@ -73,7 +73,7 @@ let completerText = comp1.getData();
 
 The new widget will be appended as a child of `someElem`.
 
-#### Constructor arguments
+### Constructor arguments
 
 | Name     | Opt | Default | Desc                                                                    |
 |----------|-----|--------:|-------------------------------------------------------------------------|
@@ -84,7 +84,7 @@ The new widget will be appended as a child of `someElem`.
 | histsize | Yes | 100     | How many entries to keep in history                                     |
 | interval | Yes | 500     | Debounce delay, in milliseconds                                         |
 
-#### Usage
+### Usage
 
 Autocomplete works like it does in `bash` and other applications which
 use the `readline` library, except with a debounce timer rather than
@@ -111,7 +111,7 @@ internal housekeeping.
 When finalization occurs (as described in previous para), a bubbling
 event named `${id}-evt` will be dispatched.
 
-#### Styling
+### Styling
 
 | className     | Notes                                                 |
 |---------------|-------------------------------------------------------|
@@ -119,7 +119,7 @@ event named `${id}-evt` will be dispatched.
 
 
 
-### Tagger
+## Tagger
 
 A Tagger is an extention of the Completer, which lets you assemble a
 list of tags, for whatever purpose you might have.
@@ -133,7 +133,7 @@ let tagList = tag1.getData()
 
 The new widget will be appended as a child of `someNode`.
 
-#### Constructor arguments
+### Constructor arguments
 
 | Name   | Opt | Default | Desc |
 |--------|-----|--------:|------|
@@ -143,7 +143,7 @@ The new widget will be appended as a child of `someNode`.
 | strict | Yes | `false` | Do not allow tags other than those in an allowed set, provided via `tags`. Not yet implemented |
 | tags   | Yes | `[]`    | Pass-through to pre-populate Completer's `history` |
 
-#### Usage
+### Usage
 
 Type into the input box. When you want to add your text as a tag,
 click the `[+]` button. This will cause the tag to pop up below the
@@ -152,7 +152,7 @@ input element.
 You can then click the cute little `ⓧ` next to the tag text to remove
 it from the list of tags.
 
-#### Styling
+### Styling
 
 | className   |  Notes |
 |-------------|--------------------------------------------------------------------|

@@ -1,3 +1,9 @@
+## v0.5.0 (2022-07-29)
+
+- Tagger
+  - Initial implementation
+
+
 ## v0.4.0 (2022-07-28)
 
 - Completer
@@ -5,6 +11,7 @@
     finalized. See README and/or the Completer test page for more info
 - Debounce
   - Fixed call to `l.log`
+
 
 ## v0.3.0 (2022-07-22)
 
