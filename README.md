@@ -121,11 +121,42 @@ event named `${id}-evt` will be dispatched.
 
 ### Tagger
 
+A Tagger is an extention of the Completer, which lets you assemble a
+list of tags, for whatever purpose you might have.
+
+```
+let tag1 = new l.Tagger(id: "tagger1", parent: someNode);
+
+// ...later on, in a processing flow
+let tags = tag1.getData()
+```
+
+The new widget will be appended as a child of `someNode`.
+
+#### Constructor arguments
+
+| Name   | Opt | Default | Desc |
+| id     | No  | None    | Sets the `id` and `name` attributes of the widget's `input` element     |
+| parent | No  | None    | The DOM id of the page element where the Completer should appear        |
+| size   | Yes | 20      | Pass-through to set the size of the Completer |
+| strict | Yes | `false` | Do not allow tags other than those in an allowed set, provided via `tags`. Not yet implemented |
+| tags   | Yes | `[]`    | Pass-through to pre-populate Completer's `history` |
+
+#### Usage
+
+Type into the input box. When you want to add your text as a tag,
+click the `[+]` button. This will cause the tag to pop up below the
+input element.
+
+You can then click the cute little `ⓧ` next to the tag text to remove
+it from the list of tags.
+
 #### Styling
 
-| className |  Notes |
-|-----------|--------------------------------------------------------------------|
-| lbTagger  | The `div` which contains all other elements of the widget          |
-| lbTagAdd  | The `+` button                                                     |
-| lbTagTag  | The outer `span` of each tag in the list                           |
-| lbTagDel  | The `x` a user clicks to remove a tag from the list                |
+| className   |  Notes |
+|-------------|--------------------------------------------------------------------|
+| `lbTagger`  | The `div` which contains all other elements of the widget          |
+| `lbTagAdd`  | The `+` button                                                     |
+| `lbTagBox`  | A `div`, under the Completer and `+`, which holds spawned tags     |
+| `lbTagTag`  | The outer `span` of each tag in the list                           |
+| `lbTagDel`  | The `x` a user clicks to remove a tag from the list                |
