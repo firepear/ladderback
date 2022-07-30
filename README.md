@@ -136,6 +136,7 @@ The new widget will be appended as a child of `someNode`.
 #### Constructor arguments
 
 | Name   | Opt | Default | Desc |
+|--------|-----|---------|------|
 | id     | No  | None    | Sets the `id` and `name` attributes of the widget's `input` element     |
 | parent | No  | None    | The DOM id of the page element where the Completer should appear        |
 | size   | Yes | 20      | Pass-through to set the size of the Completer |
