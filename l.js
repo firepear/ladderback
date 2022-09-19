@@ -13,6 +13,10 @@ window.ladderback = { completer: Completer,
 
 // debug enable function
 window.ladderback.toggleDebug = function () {
+    if (window.ladderback.i.debug) {
+        window.ladderback.i.debug = false;
+        return;
+    }
     window.ladderback.i.debug = true;
     window.ladderback.i.dout  = document.getElementById("debugoutput");
 }

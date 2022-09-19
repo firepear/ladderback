@@ -6,6 +6,8 @@
 - Tagger
   - API changes as above
 - New module, Dialog, currently internal-only
+- Other
+  - `toggleDebug` is now an actual toggle
 
 ## v0.5.0 (2022-07-29)
 
