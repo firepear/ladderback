@@ -1,10 +1,11 @@
 ## v0.6.0 (2022-09-19)
 
 - Completer
+  - Added `confirm_new` and `forbid_new` options
   - Removed `size`; element size should be set through CSS
 - Tagger
-  - Added `confirm_new` and `forbid_new` options
-  - Removed `size` due to removal in Completer
+  - API changes as above
+- New module, Dialog, currently internal-only
 
 ## v0.5.0 (2022-07-29)
 

@@ -79,8 +79,9 @@ The new widget will be appended as a child of `someElem`.
 |----------|-----|--------:|-------------------------------------------------------------------------|
 | id       | No  | None    | Sets the `id` and `name` attributes of the widget's `input` element     |
 | parent   | No  | None    | The DOM id of the page element where the Completer should appear        |
-| size     | Yes | 35      | Width of the `input` field                                              |
 | history  | Yes | `[]`    | List of strings; allows prepopulation of widget history                 |
+| confirm  | Yes | `false` | Ask before allowing entries not already in history |
+| forbid   | Yes | `false` | Do not allow entries other than those provided via `history` |
 | histsize | Yes | 100     | How many entries to keep in history                                     |
 | interval | Yes | 500     | Debounce delay, in milliseconds                                         |
 
@@ -133,15 +134,15 @@ let tagList = tag1.getData()
 
 The new widget will be appended as a child of `someNode`.
 
-### Constructor arguments
+### Tagger arguments
 
-| Name   | Opt | Default | Desc |
-|--------|-----|--------:|------|
-| id     | No  | None    | Sets the `id` and `name` attributes of the widget's `input` element     |
-| parent | No  | None    | The DOM id of the page element where the Completer should appear        |
-| size   | Yes | 20      | Pass-through to set the size of the Completer |
-| strict | Yes | `false` | Do not allow tags other than those in an allowed set, provided via `tags`. Not yet implemented |
-| tags   | Yes | `[]`    | Pass-through to pre-populate Completer's `history` |
+| Name    | Opt | Default | Desc |
+|---------|-----|--------:|------|
+| id      | No  | None    | Sets the `id` and `name` attributes of the widget's `input` element     |
+| parent  | No  | None    | The DOM id of the page element where the Completer should appear        |
+| confirm | Yes | `false` | Ask before allowing tags other than those provided via `tags` |
+| forbid  | Yes | `false` | Do not allow tags other than those  provided via `tags` |
+| tags    | Yes | `[]`    | Set the initial tags in history |
 
 ### Usage
 

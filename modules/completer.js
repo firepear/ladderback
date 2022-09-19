@@ -6,9 +6,11 @@
 // manner
 
 import { debounce } from './debounce.js';
+import { dialogue } from './dialogue.js';
 
 class Completer {
-    constructor({id, parent, history = [], histsize = 100, interval = 500}) {
+    constructor({id, parent, history = [], histsize = 100, interval = 500,
+                 confirm = false, forbid = false}) {
         this.l = window.ladderback;
         this.id = id;
         if (id == undefined || parent == undefined) {

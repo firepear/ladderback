@@ -5,7 +5,7 @@
 import { Completer } from './completer.js';
 
 class Tagger {
-    constructor({id, parent, tags=[], confirm_new=false, forbid_new=false}) {
+    constructor({id, parent, tags = [], confirm = false, forbid = false}) {
         this.l = window.ladderback;
         this.id = id;
         this.tags = [] // array to hold created tags, later
@@ -25,7 +25,7 @@ class Tagger {
 
         // build the elements we need. first, a completer
         this.complete = new Completer({id: `${id}-completer`, parent: this.container,
-                                       size: size, history: tags});
+                                       confirm: confirm, forbid: forbid, history: tags});
         // then a button
         this.plus = document.createElement("button");
         this.plus.append("+");
@@ -47,11 +47,12 @@ class Tagger {
         // get the current value of our Completer
         let value = this.complete.getData()
         // check we already have this one
-        if (this.getData().includes(value)) {
+        let curTags = this.getData();
+        if (curtags.includes(value)) {
             l.log(`${this.id}: tag '${value}' already exists; not adding`);
             return;
         }
-        // no? build the tag
+        // new; build the tag
         let tag = document.createElement("span");
         tag.id = `${this.id}-tag-${value}`;
         tag.append(value, " ");
@@ -91,4 +92,3 @@ class Tagger {
 }
 
 export { Tagger };
-
