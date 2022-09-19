@@ -8,7 +8,7 @@
 import { debounce } from './debounce.js';
 
 class Completer {
-    constructor({id, parent, size = 35, history = [], histsize = 100, interval = 500}) {
+    constructor({id, parent, history = [], histsize = 100, interval = 500}) {
         this.l = window.ladderback;
         this.id = id;
         if (id == undefined || parent == undefined) {
@@ -24,7 +24,6 @@ class Completer {
         this.elem = document.createElement("input");
         this.elem.id = id;
         this.elem.name = id;
-        this.elem.size = size;
         this.elem.className = "lbCompleter";
         // then append to our parent element
         parent.appendChild(this.elem);

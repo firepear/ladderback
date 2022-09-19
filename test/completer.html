@@ -12,8 +12,8 @@
     </style>
   </head>
   <body>
-    <div id="c1">comp1 (no history, default size): </div>
-    <div id="c2">comp2 (99 history, size 80): </div>
+    <div id="c1">comp1 (no history): </div>
+    <div id="c2">comp2 (99 history): </div>
     <pre id="debugoutput"></pre>
   </body>
   <script>
@@ -29,7 +29,7 @@
         // instantiate a ladderback Completer widget with all defaults
         comp1 = new l.completer({id: "testcomplete1", parent: document.getElementById("c1")});
         // and another with a 99 element history
-        comp2 = new l.completer({id: "testcomplete2", size: 80,
+        comp2 = new l.completer({id: "testcomplete2",,
                                  parent: document.getElementById("c2"),
                                  history: ['0','1','2','3','4','5','6','7','8','9',
                                            '10','11','12','13','14','15','16','17','18','19',

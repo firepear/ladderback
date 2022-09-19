@@ -5,7 +5,7 @@
 import { Completer } from './completer.js';
 
 class Tagger {
-    constructor({id, parent, size=20, tags=[]}) {
+    constructor({id, parent, tags=[], confirm_new=false, forbid_new=false}) {
         this.l = window.ladderback;
         this.id = id;
         this.tags = [] // array to hold created tags, later
